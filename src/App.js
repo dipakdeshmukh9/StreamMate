@@ -5,8 +5,8 @@ import Body from "./Components/Body";
 import store from "./utils/store";
 import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import SearchResultContainer from "./components/SearchResultContainer";
-import WatchPage from "./components/WatchPage";
+import SearchResultContainer from "./Components/SearchResultContainer";
+import WatchPage from "./Components/WatchPage";
 
 function App() {
   const AppRouter = createBrowserRouter([

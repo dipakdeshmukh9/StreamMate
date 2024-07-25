@@ -1,49 +1,49 @@
 const commentsData = [
   {
-    name: "shashank yadav",
+    name: "Dipak Deshmukh",
     text: " nice video Keep it up⭐⭐🙌",
     replies: [],
     avatarUrl: "https://avatar.iran.liara.run/public/42",
   },
   {
-    name: "shashank yadav",
+    name: "Dipak Deshmukh",
     text: " nice video",
     avatarUrl: "https://avatar.iran.liara.run/public/46",
     replies: [],
   },
   {
-    name: "shashank yadav",
+    name: "Dipak Deshmukh",
     text: " slaying 💕",
     replies: [],
     avatarUrl: "https://avatar.iran.liara.run/public/44",
   },
   {
-    name: "shashank yadav",
+    name: "Dipak Deshmukh",
     text: " Excellent !!!",
     replies: [],
     avatarUrl: "https://avatar.iran.liara.run/public/61",
   },
   {
-    name: "shashank yadav",
+    name: "Dipak Deshmukh",
     text: " nice video Keep it up⭐🙌",
     replies: [
       {
-        name: "shashank yadav",
+        name: "Dipak Deshmukh",
         text: " nice video Keep it up🙌",
         avatarUrl: "https://avatar.iran.liara.run/public/60",
         replies: [
           {
-            name: "shashank yadav",
+            name: "Dipak Deshmukh",
             text: " nice video Keep it ",
             avatarUrl: "https://avatar.iran.liara.run/public",
             replies: [
               {
-                name: "shashank yadav",
+                name: "Dipak Deshmukh",
                 text: " nice video Keep it up⭐⭐🙌",
                 avatarUrl: "https://avatar.iran.liara.run/public",
                 replies: [
                   {
-                    name: "shashank yadav",
+                    name: "Dipak Deshmukh",
                     text: " nice video Keep it up⭐⭐🙌",
                     avatarUrl: "https://avatar.iran.liara.run/public",
                     replies: [],
