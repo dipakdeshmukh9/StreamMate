@@ -1,3 +1,16 @@
+const GOOGLE_API_KEY = "AIzaSyCKnR-XAeIR0Jcau1TKY5d3k2E7o3vJezU";
+
+export const YOUTUBE_VIDEO_API =
+  "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=IN&key=" +
+  GOOGLE_API_KEY;
+
+export const YOUTUBE_VIDEO_WATCH_API = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&key=${GOOGLE_API_KEY}&id=`;
+
+export const YOUTUBE_SEARCH_API =
+  "https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";
+
+export const YOUTUBE_SEARCH_VIDEO_WITH_QUERY_API = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&key=${GOOGLE_API_KEY}&q=`;
+
 var nameList = [
   "Time",
   "Past",
@@ -179,42 +192,17 @@ export function generateRandomName() {
   return nameList[Math.floor(Math.random() * nameList.length)];
 }
 
-export function makeRandomMessage(length) {
-  let result = "";
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const charactersLength = characters.length;
-  let counter = 0;
-  while (counter < length) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    counter += 1;
-  }
-  return result;
-}
+const messagesList = [
+  "keep Going Bro🙌",
+  "You video is always nailed it👌",
+  "keep on rocking hero",
+  "You are best umm  best dude🔥🔥",
+  "superbbbb😍😍👨‍💼",
+  "slaying💕",
+  "always onnn",
+  "Bombb💣💣",
+];
 
-export const findPrime = (num) => {
-  let i,
-    primes = [2, 3],
-    n = 5;
-  const isPrime = (n) => {
-    let i = 1,
-      p = primes[i],
-      limit = Math.ceil(Math.sqrt(n));
-    while (p <= limit) {
-      if (n % p === 0) {
-        return false;
-      }
-      i += 1;
-      p = primes[i];
-    }
-    return true;
-  };
-  for (i = 2; i <= num; i += 1) {
-    while (!isPrime(n)) {
-      n += 2;
-    }
-    primes.push(n);
-    n += 2;
-  }
-  return primes[num - 1];
-};
+export function RandomMessages() {
+  return messagesList[Math.floor(Math.random() * messagesList.length)];
+}

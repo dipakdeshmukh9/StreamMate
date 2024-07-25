@@ -1,68 +1,67 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addMessage } from "../utils/chatSlice";
-import { generateRandomName, makeRandomMessage } from "../utils/helper";
 import ChatMessage from "./ChatMessage";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  RandomMessages,
+  generateRandomName,
+  randomIndex,
+} from "../Constants/Constant";
+import { addMessage } from "../utils/chatslice";
 
 const LiveChat = () => {
-  const [liveMessage, setLiveMessage] = useState("");
+  const [LiveMessage, setLiveMessage] = useState();
+
   const dispatch = useDispatch();
-
   const chatMessages = useSelector((store) => store.chat.messages);
-
   useEffect(() => {
     const i = setInterval(() => {
-      // API Polling
-
       dispatch(
         addMessage({
           name: generateRandomName(),
-          message: makeRandomMessage(20) + " 🚀",
+          message: RandomMessages(),
         })
       );
-    }, 2000);
+    }, 500);
 
     return () => clearInterval(i);
   }, []);
 
   return (
     <>
-      <div className="w-full h-[600px] ml-2 p-2 border border-black bg-slate-100 rounded-lg overflow-y-scroll flex flex-col-reverse">
-        <div>
-          {
-            // Disclaimer: Don't use indexes as keys
-            chatMessages.map((c, i) => (
-              <ChatMessage key={i} name={c.name} message={c.message} />
-            ))
-          }
-        </div>
+      <div className="w-full h-[510px]  ml-3 border border-gray-700 rounded-xl  bg-slate-100 overflow-x-scroll flex flex-col-reverse">
+        {chatMessages.map((c, index) => (
+          <ChatMessage name={c.name} message={c.message} />
+        ))}
       </div>
 
       <form
-        className="w-full p-2 ml-2 border border-black"
+        className="w-full py-1 mx-2 border border-gray-400"
         onSubmit={(e) => {
           e.preventDefault();
-
           dispatch(
             addMessage({
-              name: "Dipak Deshmukh",
-              message: liveMessage,
+              name: "Shashank Yadav",
+              message: LiveMessage,
             })
           );
           setLiveMessage("");
         }}
       >
         <input
-          className="px-2 w-96"
-          type="text"
-          value={liveMessage}
+          className="w-[80%] rounded-xl "
+          type="text "
+          value={LiveMessage}
           onChange={(e) => {
             setLiveMessage(e.target.value);
           }}
-        />
-        <button className="px-2 mx-2 bg-green-100">Send</button>
+        ></input>
+        <button className="border border-gray-800 rounded-3xl mx-2 px-2  bg-slate-800 text-gray-100 hover:bg-slate-600 cursor-pointer">
+          Submit
+        </button>
       </form>
     </>
   );
 };
+
 export default LiveChat;

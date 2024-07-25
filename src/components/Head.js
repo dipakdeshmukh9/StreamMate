@@ -1,106 +1,111 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleMenu } from "../utils/appSlice";
-import { YOUTUBE_SEARCH_API } from "../utils/contants";
-import { cacheResults } from "../utils/searchSlice";
+import { toggleMenu } from "../utils/appslice";
+import { useDispatch } from "react-redux";
+import { YOUTUBE_SEARCH_API } from "../Constants/Constant";
+import { useNavigate } from "react-router-dom";
 
 const Head = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+  const [searchQuery, setsearchQuery] = useState("");
+  const [suggestion, SetSuggestion] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-
-  const searchCache = useSelector((store) => store.search);
-  const dispatch = useDispatch();
-
-  /**
-   *  searchCache = {
-   *     "iphone": ["iphone 11", "iphone 14"]
-   *  }
-   *  searchQuery = iphone
-   */
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (searchCache[searchQuery]) {
-        setSuggestions(searchCache[searchQuery]);
-      } else {
-        getSearchSugsestions();
-      }
-    }, 200);
+    const Timer = setTimeout(() => getSearchSuggestion(), 200);
 
     return () => {
-      clearTimeout(timer);
+      clearTimeout(Timer);
     };
   }, [searchQuery]);
 
-  const getSearchSugsestions = async () => {
+  const getSearchSuggestion = async () => {
     const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
     const json = await data.json();
-    //console.log(json[1]);
-    setSuggestions(json[1]);
-
-    // update cache
-    dispatch(
-      cacheResults({
-        [searchQuery]: json[1],
-      })
-    );
+    SetSuggestion(json[1]);
   };
 
+  const Dispatch = useDispatch();
   const toggleMenuHandler = () => {
-    dispatch(toggleMenu());
+    Dispatch(toggleMenu());
+  };
+
+  const handleSuggestion = (event) => {
+    setsearchQuery(event.target.innerText);
+    setShowSuggestions(false);
+    navigate("/results?search_query=" + encodeURI(event.target.innerText));
   };
 
   return (
-    <div className="grid grid-flow-col p-5 m-2 shadow-lg">
-      <div className="flex col-span-1">
+    <div className="grid grid-flow-col p-5 bg-white shadow-lg">
+      <div className="flex col-span-1 gap-8">
         <img
-          onClick={() => toggleMenuHandler()}
+          onClick={toggleMenuHandler}
           className="h-8 cursor-pointer"
-          alt="menu"
-          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAARVBMVEX///8jHyAgHB0OBQgMAAWlpKQpJSaenZ309PUAAAAIAAD8/Pz5+fna2tqop6dvbW1oZmevrq4tKivFxMQYExRiYGC+vr7Dc4WrAAABB0lEQVR4nO3cS3LCMBAFQGIIIBPbhN/9jxqSyiIsTUnlydB9g1eSNV5MvdUKAAAAAAAAAAAAAAAAXtEwvscwDk3yHabSb2Loy/TRIOHUv8XRH+sHHMrSqR6U+hd1jHSE90P8lHC2/Lc0/0vzMy3WMdynxaFBwu+Jv4uh0cQHAAAAAAAAAIB59jG0ijdcT9sYTtcmK0PncumiuJRz/YD7bbf0ut4f3br+GvQt2PblrXrC3WbpUA/6sXrC/GeY/zvM/5aGmofHZiu0S//M/GoVDwAAAAAAAAAAZsjeuRerN1HL7hPy95fm76DNnzD/Lc3/0rxAJ3v+Xn0AAAAAAAAAAAAAAAD4T74AYhs1O+vt3ioAAAAASUVORK5CYII="
+          alt="menu-icons"
+          src="./Images/Menu-icon.png"
         />
-        <a href="/">
-          <img
-            className="h-8 mx-2"
-            alt="youtube-logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/2560px-YouTube_Logo_2017.svg.png"
-          />
-        </a>
+
+        <img
+          className="h-8"
+          alt="YouTube Logo"
+          src="https://tse4.mm.bing.net/th?id=OIP.gdd5Vgi_qnWF2jFwlmygPAHaBp&pid=Api&P=0&h=180"
+        />
       </div>
-      <div className="col-span-10 px-10">
+      <div className="col-span-9">
         <div>
           <input
-            className="px-5 w-1/2 border border-gray-400 p-2 rounded-l-full"
+            className="w-1/2 border border-gray-500 py-2 align-top rounded-l-full px-6"
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => setsearchQuery(e.target.value)}
             onFocus={() => setShowSuggestions(true)}
             onBlur={() => setShowSuggestions(false)}
           />
-          <button className="border border-gray-400 px-5 py-2 rounded-r-full bg-gray-100">
-            🔍
+          <button className="h-[41px] border border-gray-500 rounded-r-full align-top bg-slate-200 hover:bg-slate-500">
+            <img
+              className="h-4 px-4 border-l-slate-900"
+              alt="logo"
+              src="./Images/Search-button.png"
+            />
           </button>
+          {showSuggestions && (
+            <div className="bg-white py-2 px-4 w-[34rem] rounded-3xl shadow-2xl absolute">
+              <ul>
+                {suggestion.map((s) => (
+                  <li
+                    key={s}
+                    onMouseDown={(e) => handleSuggestion(e)}
+                    className="px-2 py-1 flex gap-2 hover:bg-slate-300 rounded-3xl"
+                  >
+                    <img
+                      className="h-4"
+                      alt="search"
+                      src="./Images/Search-button.png"
+                    />
+                    {s}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
-        {showSuggestions && (
-          <div className="fixed bg-white py-2 px-2 w-[37rem] shadow-lg rounded-lg border border-gray-100">
-            <ul>
-              {suggestions.map((s) => (
-                <li key={s} className="py-2 px-3 shadow-sm hover:bg-gray-100">
-                  🔍 {s}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </div>
-      <div className="col-span-1">
+      <div className="flex flex-wrap col-span-2 gap-7">
         <img
-          className="h-8"
-          alt="user"
-          src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
+          className="h-8 rounded-full drop-shadow-2xl hover:border border-gray-900"
+          alt="User-Logo"
+          src="./Images/mic-logo2.png"
+        />
+        <img
+          className="h-8 gap bg-white rounded-full"
+          alt="User-Logo"
+          src="./Images/user-image.jpg"
         />
       </div>
+      <div
+        className="border border-cyan-600 google-element"
+        id="google-element"
+      ></div>
     </div>
   );
 };

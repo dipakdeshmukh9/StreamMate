@@ -1,61 +1,43 @@
-import { Provider } from "react-redux";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Head from "./Components/Head";
 import "./App.css";
-import Body from "./components/Body";
-import Demo from "./components/Demo";
-import Demo2 from "./components/Demo2";
-import Head from "./components/Head";
-import MainContainer from "./components/MainContainer";
-import WatchPage from "./components/WatchPage";
+import MainContainer from "./Components/MainContainer";
+import Body from "./Components/Body";
 import store from "./utils/store";
-
-const appRouter = createBrowserRouter([
-  {
-    path: "/",
-    element: <Body />,
-    children: [
-      {
-        path: "/",
-        element: <MainContainer />,
-      },
-      {
-        path: "watch",
-        element: <WatchPage />,
-      },
-      {
-        path: "demo",
-        element: (
-          <>
-            <Demo />
-            <Demo2 />
-          </>
-        ),
-      },
-    ],
-  },
-]);
+import { Provider } from "react-redux";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import SearchResultContainer from "./components/SearchResultContainer";
+import WatchPage from "./components/WatchPage";
 
 function App() {
+  const AppRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: (
+        <>
+          <Head /> {/* Ensure Head is inside the Router context */}
+          <Body />
+        </>
+      ),
+      children: [
+        {
+          path: "/",
+          element: <MainContainer />,
+        },
+        {
+          path: "/watch",
+          element: <WatchPage />,
+        },
+        {
+          path: "/results",
+          element: <SearchResultContainer />,
+        },
+      ],
+    },
+  ]);
+
   return (
     <Provider store={store}>
-      <div>
-        <Head />
-        <RouterProvider router={appRouter} />
-
-        {/**
-         *
-         * Head
-         * Body
-         *  Sidebar
-         *    MenuItems
-         *  MainContainer
-         *    ButtonsList
-         *    VideoContainer
-         *      VideoCard
-         *
-         *
-         */}
-      </div>
+      <RouterProvider router={AppRouter} />
     </Provider>
   );
 }
