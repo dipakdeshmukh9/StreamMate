@@ -41,7 +41,7 @@ const LiveChat = () => {
           e.preventDefault();
           dispatch(
             addMessage({
-              name: "Shashank Yadav",
+              name: "Dipak Deshmukh",
               message: LiveMessage,
             })
           );
