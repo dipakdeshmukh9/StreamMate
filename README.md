@@ -1,36 +1,11 @@
-Debouncing: 
-
-
-typing slow = 200ms
-typing fast = 30ms
-
-
-Perfomance: 
- - iphone pro max = 14 letter * 1000  = 140000
- - with debouncing= 3 API calls * 1000 = 3000
-
-
-
- Debouncing with 200ms
- - if difference between 2 key strokes is <200ms - DECLINE API call
-- >200ms make an API call
-
-
-
-
-
-
-Cache: 
-time complexity tro search in array = O(n)
-time complexity tro search in Object = O(1)
-
-[i, ip, iph, iphone]
-
-{
-    i: 
-    ip:
-    iph: 
-    iphone:
-}
-
-new Map();
+The project uses React JS, Redux store, and Tailwind CSS to enhance the user experience. The project includes the following features: 
+ 
+Live stream chat: The project includes a live stream chat feature. 
+ 
+Nested comments: The project includes nested comments. 
+ 
+Optimized search bar: The project includes an optimized search bar. 
+ 
+User authentication: The project includes user authentication. 
+ 
+Video streaming: The project includes video streaming. 
