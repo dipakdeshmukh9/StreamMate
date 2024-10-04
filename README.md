@@ -1,11 +1,15 @@
-The project uses React JS, Redux store, and Tailwind CSS to enhance the user experience. The project includes the following features: 
+# StreamMate 
+## HighLights Video Streaming features With Chat and optimized searching
+
  
-Live stream chat: The project includes a live stream chat feature. 
+## Live stream chat:
+ - The project includes a live stream chat feature. 
  
-Nested comments: The project includes nested comments. 
+## Nested comments:
+- The project includes nested comments. 
  
-Optimized search bar: The project includes an optimized search bar. 
+## Optimized search bar:
+- The project includes an optimized search bar. 
  
-User authentication: The project includes user authentication. 
- 
-Video streaming: The project includes video streaming. 
+## Video streaming: 
+- The project includes video streaming. 
